@@ -4,6 +4,7 @@ namespace App\Doctrine\DataFixtures;
 
 use App\Model\Entity\User;
 use App\Model\Entity\VideoGame;
+use App\Model\Entity\Tag;
 use App\Rating\CalculateAverageRating;
 use App\Rating\CountRatingsPerValue;
 use DateTimeImmutable;
@@ -13,6 +14,7 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
 
 use function array_fill_callback;
+use function PHPUnit\Framework\callback;
 
 final class VideoGameFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -38,8 +40,13 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         );
 
         // TODO : Ajouter les tags aux vidéos
+        $tagList = ['Action', 'Aventure', 'Multijoueur'];
+        $tags = array_fill_callback(0, count($tagList), fn (int $index): Tag => (new Tag)
+            ->setName($tagList[$index])
+        );
 
         array_walk($videoGames, [$manager, 'persist']);
+        array_walk($tags, [$manager, 'persist']);
 
         $manager->flush();
 
