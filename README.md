@@ -48,17 +48,17 @@ symfony console doctrine:database:drop --force --if-exists
 
 #### Créer la base de données
 ```bash
-symfony console doctrine:database:create
+symfony console doctrine:database:create --env=test
 ```
 
 #### Exécuter les migrations
 ```bash
-symfony console doctrine:migrations:migrate -n
+symfony console doctrine:migrations:migrate -n --env=test
 ```
 
 #### Charger les fixtures
 ```bash
-symfony console doctrine:fixtures:load -n --purge-with-truncate
+symfony console doctrine:fixtures:load -n --purge-with-truncate --env=test
 ```
 
 *Note : Vous pouvez exécuter ces commandes avec l'option `--env=test` pour les exécuter dans l'environnement de test.*
